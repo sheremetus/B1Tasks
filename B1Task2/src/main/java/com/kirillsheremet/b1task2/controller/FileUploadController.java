@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
-import java.util.Iterator;
+import java.util.*;
 
 
 @Controller
@@ -69,7 +70,7 @@ public class FileUploadController {
     @RequestMapping(value = "/excel", method = RequestMethod.POST)
     public void saveAccounts() throws IOException {
         // Находим нужный файл и создаем workbook- сущность Excel страницы из Apache POI
-        FileInputStream file = new FileInputStream("D:\\ОСВ для тренинга.xls");
+        FileInputStream file = new FileInputStream("D:\\Java\\ОСВ для тренинга.xls");
         HSSFWorkbook workbook = new HSSFWorkbook(file);
 //
         int classId = 1;
@@ -133,31 +134,33 @@ public class FileUploadController {
 
     }
 
+    /**
+     * Метод для демонстрации Excel файлов на web странице
+     */
     @RequestMapping(value = "/showExcel", method = RequestMethod.GET)
-    public void showExcel(HttpServletResponse res, HttpServletRequest req) throws IOException {
+    public String showExcel(Model model) throws IOException {
 
-        FileInputStream file = new FileInputStream(new File("D:\\Task2\\ОСВ для тренинга.xls"));
+        FileInputStream file = new FileInputStream(new File("D:\\Java\\ОСВ для тренинга.xls"));
         HSSFWorkbook workbook = new HSSFWorkbook(file);
         HSSFSheet sheet = workbook.getSheetAt(0);
         Iterator<Row> rowIterator = sheet.iterator();
-
-        res.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = new PrintWriter(
-                new OutputStreamWriter(res.getOutputStream(), StandardCharsets.UTF_8));
+        Map<Integer, List<Cell>> data = new HashMap<>();
+        int rowNumber = 0;
         while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
             Iterator<Cell> cellIterator = row.cellIterator();
-
+            rowNumber++;
+            List<Cell> cells = new ArrayList<>();
             while (cellIterator.hasNext()) {
-                Cell cell = cellIterator.next();
+                cells.add(cellIterator.next());
 
-                out.write(String.valueOf(cell));
-                out.write("\u00A0" + "\u00A0");
             }
-            out.print("<br>");
-        }
-        out.close();
+            data.put(rowNumber, cells);
 
+        }
+        model.addAttribute("data", data);
+        return "showExcel";
     }
+
 
 }
