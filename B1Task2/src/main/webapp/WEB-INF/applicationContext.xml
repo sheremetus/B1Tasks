@@ -52,7 +52,7 @@
 
 
 
-    <mvc:view-controller path="/file.html" view-name="/file"/>
+    <mvc:view-controller path="/" view-name="/file"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 

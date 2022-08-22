@@ -136,16 +136,19 @@ public class FileUploadController {
 
     /**
      * Метод для демонстрации Excel файлов на web странице
+     * В основе лежит передача Модели на Jsp страницу
+     * В качестве модели используется Map каждый элемент которой будет содержать строчку Excel документа
      */
     @RequestMapping(value = "/showExcel", method = RequestMethod.GET)
     public String showExcel(Model model) throws IOException {
-
         FileInputStream file = new FileInputStream(new File("D:\\Java\\ОСВ для тренинга.xls"));
         HSSFWorkbook workbook = new HSSFWorkbook(file);
         HSSFSheet sheet = workbook.getSheetAt(0);
         Iterator<Row> rowIterator = sheet.iterator();
+        // Ключ-номер строки, лист-строка
         Map<Integer, List<Cell>> data = new HashMap<>();
         int rowNumber = 0;
+        // Два вложенных цикла while иттерация идет по строкам -> далее по ячейкам строки
         while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
             Iterator<Cell> cellIterator = row.cellIterator();
@@ -158,6 +161,7 @@ public class FileUploadController {
             data.put(rowNumber, cells);
 
         }
+        // Добавляем модель в наш view
         model.addAttribute("data", data);
         return "showExcel";
     }
