@@ -9,25 +9,22 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 
 @Controller
 @Transactional
 public class FileUploadController {
+
+    private static final String filePath = "D:\\Java\\ОСВ для тренинга.xls";
+
 
     @Autowired
     private ExcelDaoImpl excelDao;
@@ -70,7 +67,7 @@ public class FileUploadController {
     @RequestMapping(value = "/excel", method = RequestMethod.POST)
     public void saveAccounts() throws IOException {
         // Находим нужный файл и создаем workbook- сущность Excel страницы из Apache POI
-        FileInputStream file = new FileInputStream("D:\\Java\\ОСВ для тренинга.xls");
+        FileInputStream file = new FileInputStream(filePath);
         HSSFWorkbook workbook = new HSSFWorkbook(file);
 //
         int classId = 1;
@@ -141,7 +138,7 @@ public class FileUploadController {
      */
     @RequestMapping(value = "/showExcel", method = RequestMethod.GET)
     public String showExcel(Model model) throws IOException {
-        FileInputStream file = new FileInputStream(new File("D:\\Java\\ОСВ для тренинга.xls"));
+        FileInputStream file = new FileInputStream(new File(filePath));
         HSSFWorkbook workbook = new HSSFWorkbook(file);
         HSSFSheet sheet = workbook.getSheetAt(0);
         Iterator<Row> rowIterator = sheet.iterator();
