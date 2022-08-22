@@ -14,8 +14,10 @@
 <body>
 <c:if test="${not empty data}">
     <table style="border: 1px solid black; border-collapse: collapse;">
+        // Итерируемся по карте
         <c:forEach items="${data}" var="row">
             <tr>
+                //Итерируемся по ячейкам
                 <c:forEach items="${row.value}" var="cell">
                     <td style="border:1px solid black;height:20px;width:100px;">
                             ${cell}
