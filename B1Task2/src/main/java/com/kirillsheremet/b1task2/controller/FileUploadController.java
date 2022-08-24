@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.*;
@@ -24,7 +25,8 @@ import java.util.*;
 public class FileUploadController {
 
     private static final String filePath = "D:\\Java\\ОСВ для тренинга.xls";
-
+    //Список загруженных нами файлов
+    static private List<String> listOfDownloadedFiles = new ArrayList<>();
 
     @Autowired
     private ExcelDaoImpl excelDao;
@@ -127,9 +129,19 @@ public class FileUploadController {
 
             }
         }
-
+        listOfDownloadedFiles.add(filePath);
 
     }
+
+    /**
+     * Метод для просмотра списка загруженных файлов
+     */
+    @RequestMapping(value = "/showExcelsInDb", method = RequestMethod.GET)
+    public String showExcelsInDb(Model model) {
+        model.addAttribute("data", listOfDownloadedFiles);
+        return "showExcelsInDB";
+    }
+
 
     /**
      * Метод для демонстрации Excel файлов на web странице

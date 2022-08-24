@@ -27,16 +27,18 @@
             </form>
 
             <form action="/excel" method="post">
-                <input type="submit" name="button" value="Загрузить файл в базу данных" />
+                <input type="submit" name="button" value="Загрузить файл в базу данных"/>
 
             </form>
             <form action="/showExcel" method="get">
-                <input type="submit" name="button" value="Показать загруженный файл на веб странице" />
+                <input type="submit" name="button" value="Показать загруженный файл на веб странице"/>
 
             </form>
             <br/>
+            <form action="/showExcelsInDb" method="get">
+                <input type="submit" name="button" value="Показать список загруженных файлов в базу данных"/>
 
-
+            </form>
 
         </div>
 
