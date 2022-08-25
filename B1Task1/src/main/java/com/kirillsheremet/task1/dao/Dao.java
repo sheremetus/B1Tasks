@@ -1,10 +1,10 @@
-package com.kirillsheremet.task1;
+package com.kirillsheremet.task1.dao;
 
 import java.sql.*;
 import java.util.List;
 import java.util.Properties;
 
-public class DAO {
+public class Dao {
 
 
     private Connection con = null;

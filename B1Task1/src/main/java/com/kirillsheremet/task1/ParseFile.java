@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParseFile {
+    // Всего 5 элементов в базе данных -> 5 строк будет в массиве
     private String[] lineFromFile = new String[5];
+    // Каждый элемент листа это новая строка
     private List<String[]> linesFromFiles = new ArrayList<>();
 
     public List<String[]> parsingFile(File inputFile) throws IOException {
@@ -17,6 +19,7 @@ public class ParseFile {
         while ((currentLine = reader.readLine()) != null) {
 
             String trimmedLine = currentLine.trim();
+            // split - делит по регулярному выражению
             lineFromFile = trimmedLine.split("\\|\\|");
             linesFromFiles.add(lineFromFile);
 

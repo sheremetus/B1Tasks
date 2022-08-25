@@ -1,4 +1,4 @@
-package com.kirillsheremet.task1;
+package com.kirillsheremet.task1.dao;
 
 public class DBParameter {
     private DBParameter(){}
