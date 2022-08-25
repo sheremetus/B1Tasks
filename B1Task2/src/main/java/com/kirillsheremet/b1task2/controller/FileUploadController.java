@@ -67,7 +67,7 @@ public class FileUploadController {
      * Метод для загрузки Excel файлов определенного типа в базу данных
      */
     @RequestMapping(value = "/excel", method = RequestMethod.POST)
-    public void saveAccounts() throws IOException {
+    public String saveAccounts() throws IOException {
         // Находим нужный файл и создаем workbook- сущность Excel страницы из Apache POI
         FileInputStream file = new FileInputStream(filePath);
         HSSFWorkbook workbook = new HSSFWorkbook(file);
@@ -130,7 +130,7 @@ public class FileUploadController {
             }
         }
         listOfDownloadedFiles.add(filePath);
-
+        return "file";
     }
 
     /**
@@ -142,6 +142,14 @@ public class FileUploadController {
         return "showExcelsInDB";
     }
 
+
+    /**
+     * Метод для просмотра данных БД на веб странице
+     */
+    @RequestMapping(value = "/showExcelFromDB", method = RequestMethod.GET)
+    public String showExcelFromDB() {
+        return "showExcelFromDB";
+    }
 
     /**
      * Метод для демонстрации Excel файлов на web странице

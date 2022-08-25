@@ -39,7 +39,10 @@
                 <input type="submit" name="button" value="Показать список загруженных файлов в базу данных"/>
 
             </form>
+            <form action="/showExcelFromDB" method="get">
 
+                <input type="submit" name="button" value="Просмотреть файл загруженный в базу данных"/>
+            </form>
         </div>
 
     </div>

@@ -18,6 +18,5 @@ public class ExcelDaoImpl implements ExcelDao {
     public <T> void save(T parameter) {
         Session session = sessionFactory.getCurrentSession();
         session.save(parameter);
-
     }
 }
